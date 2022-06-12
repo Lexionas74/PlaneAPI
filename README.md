@@ -2,9 +2,14 @@
 
 
 # What is PlaneAPI?
+PlaneAPi is an API that gives you a random image of a plane. 
 
-Plane api is an API that gives you a random image of a plane. 
 
-Created by Lexionas74#1535 and Conos#9079
 
 # How do I use plane API?
+As PlaneAPI is a work in progress, this is not currently possible
+
+
+
+
+Created by Lexionas74#1535 and Conos#9079
