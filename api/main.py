@@ -9,8 +9,10 @@ planedb = []
 class Plane(BaseModel):
     id: int
     name: str
-    price: float
-    is_plane: Optional[bool] = None
+    price: str
+    length: str
+    winspan: str
+    is_jet_engine: Optional[bool] = None
 
 @PlaneAPI.get('/')
 def read_root():
@@ -25,7 +27,7 @@ def get_a_plane(plane_id: int):
     plane = plane_id - 1
     return planedb[plane]
 
-@PlaneAPI.post("/getplane)")
+@PlaneAPI.post("/getplane")
 def add_plane(plane: Plane):
     planedb.append(plane.dict())
     return planedb[-1]  

@@ -2,7 +2,7 @@
 
 
 # What is PlaneAPI?
-PlaneAPi is an API that gives you a random image of a plane. 
+PlaneAPi is an API that gives you some information about a random plane
 
 
 
