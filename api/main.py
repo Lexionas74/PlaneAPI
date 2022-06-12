@@ -7,3 +7,4 @@ PlaneAPI = FastAPI()
 @PlaneAPI.get('/')
 def read_root():
     return {"Hey!": "Welcome to PlaneAPI"}
+    
