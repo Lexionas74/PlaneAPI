@@ -7,13 +7,13 @@ PlaneAPI = FastAPI()
 planedb = []
 
 class Plane(BaseModel):
-    id: int
-    name: str
-    price: str
-    length: str
-    winspan: str
-    mtow: str
-    is_jet_engine: Optional[bool] = None
+    id: int # id
+    name: str # plane name
+    price: str # plane price
+    length: str # plane length
+    wingspan: str # wingspan
+    mtow: str # maximum takeoff weight
+    is_jet_engine: Optional[bool] = None # does the plane have jet engines or not?
 
 @PlaneAPI.get('/')
 def read_root():
