@@ -13,6 +13,7 @@ class Plane(BaseModel):
     length: str # plane length
     wingspan: str # wingspan
     mtow: str # maximum takeoff weight
+    max_speed: str # maximum speed
     is_jet_engine: Optional[bool] = None # does the plane have jet engines or not?
 
 @PlaneAPI.get('/')
