@@ -12,6 +12,7 @@ class Plane(BaseModel):
     price: str
     length: str
     winspan: str
+    mtow: str
     is_jet_engine: Optional[bool] = None
 
 @PlaneAPI.get('/')
