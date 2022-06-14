@@ -2,4 +2,3 @@ sqlalchemy
 fastapi
 pydantic
 typing
-sqlite3
