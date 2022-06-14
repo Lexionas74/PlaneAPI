@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 class Plane(BaseModel):
     ids: int # id
     name: str # plane name
