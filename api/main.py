@@ -3,13 +3,14 @@ import sys
 import os
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Request
 from pydantic import BaseModel
 from typing import Optional
 from tools import crud, models, schemas
 from theme import *
 from tools.data import SessionLocal, engine
 from sqlalchemy.orm import Session
+from im import whitelisted
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -37,22 +38,30 @@ def get_a_plane(plane_id,db: Session = Depends(get_db)):
     return plane
 
 @PlaneAPI.post("/postplane",tags=["Private Items"])
-def add_plane(plane:schemas.Plane,db: Session = Depends(get_db)):
-    db_plane = crud.get_plane_by_id(db, ids=plane.ids)
-    db_plane_name = crud.get_plane_by_name(db, name=plane.name)
-    if db_plane:
-        raise HTTPException(status_code=400, detail="A plane already exists with the given id.")
-    elif db_plane_name:
-        raise HTTPException(status_code=400, detail="A plane already exists with the given id.")
+def add_plane(plane:schemas.Plane,request: Request,db: Session = Depends(get_db)):
+    client_host = request.client.host
+    if str(client_host) in whitelisted:
+        db_plane = crud.get_plane_by_id(db, ids=plane.ids)
+        db_plane_name = crud.get_plane_by_name(db, name=plane.name)
+        if db_plane:
+            raise HTTPException(status_code=400, detail="A plane already exists with the given id.")
+        elif db_plane_name:
+            raise HTTPException(status_code=400, detail="A plane already exists with the given id.")
+        else:
+            return crud.create_plane(db=db, plane_info=plane)
     else:
-        return crud.create_plane(db=db, plane_info=plane)
+        raise HTTPException(status_code=403, detail="You can't access this...")
 
 @PlaneAPI.delete("/getplane/{plane_id}",tags=["Private Items"])
-def delete_plane(plane_id:int,db: Session = Depends(get_db)):
-    try:
-        db_plane = crud.get_plane_by_id(db, ids=int(plane_id))
-        res = crud.delete_plane_by_id(db=db, ids=int(plane_id))
-    except Exception as e:
-            print(e)
-            raise HTTPException(status_code=404, detail="Could not find that plane...")
-    raise HTTPException(status_code=200, detail="Done!")   
+def delete_plane(plane_id:int,request: Request,db: Session = Depends(get_db)):
+    client_host = request.client.host
+    if str(client_host) in whitelisted:
+        try:
+            db_plane = crud.get_plane_by_id(db, ids=int(plane_id))
+            res = crud.delete_plane_by_id(db=db, ids=int(plane_id))
+        except Exception as e:
+                print(e)
+                raise HTTPException(status_code=404, detail="Could not find that plane...")
+        raise HTTPException(status_code=200, detail="Done!")
+    else:
+        raise HTTPException(status_code=403, detail="You can't access this...")
