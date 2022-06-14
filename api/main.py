@@ -7,11 +7,13 @@ from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
 from tools import crud, models, schemas
+from theme import *
 from tools.data import SessionLocal, engine
 from sqlalchemy.orm import Session
 
+
 models.Base.metadata.create_all(bind=engine)
-PlaneAPI = FastAPI()
+PlaneAPI = FastAPI(title="PlaneAPI",description=description,version="1.0.0",contact=contact,openapi_tags=tags_metadata)
 def get_db(): # Just getting the db ykyk
     db = SessionLocal()
     try:
@@ -19,22 +21,22 @@ def get_db(): # Just getting the db ykyk
     finally:
         db.close()
 
-@PlaneAPI.get('/')
+@PlaneAPI.get('/',tags=["Misc Items"])
 def read_root():
-    return {"Hey!": "Welcome to PlaneAPI"}
+    return {"Hey!": "Welcome to PlaneAPI. Use the endpoint `/getplane` to get a random plane!"}
 
-@PlaneAPI.get('/getplane')
+@PlaneAPI.get('/getplane',tags=["Planes"])
 def getplane(db: Session = Depends(get_db)):
     all_planes = crud.get_all_planes(db)
     random_plane = random.choice(all_planes)
     return random_plane
 
-@PlaneAPI.get('/getplane/{plane_id}')
+@PlaneAPI.get('/getplane/{plane_id}',tags=["Planes"])
 def get_a_plane(plane_id,db: Session = Depends(get_db)):
     plane = crud.get_plane_by_id(db, int(plane_id))
     return plane
 
-@PlaneAPI.post("/postplane")
+@PlaneAPI.post("/postplane",tags=["Private Items"])
 def add_plane(plane:schemas.Plane,db: Session = Depends(get_db)):
     db_plane = crud.get_plane_by_id(db, ids=plane.ids)
     db_plane_name = crud.get_plane_by_name(db, name=plane.name)
@@ -45,7 +47,12 @@ def add_plane(plane:schemas.Plane,db: Session = Depends(get_db)):
     else:
         return crud.create_plane(db=db, plane_info=plane)
 
-#@PlaneAPI.delete("/getplane/{plane_id}")
-#def delete_plane(plane_id :int):
-#    planedb.pop(plane_id-1)
-#    return {"Task": "Deletion successful"}
+@PlaneAPI.delete("/getplane/{plane_id}",tags=["Private Items"])
+def delete_plane(plane_id:int,db: Session = Depends(get_db)):
+    try:
+        db_plane = crud.get_plane_by_id(db, ids=int(plane_id))
+        res = crud.delete_plane_by_id(db=db, ids=int(plane_id))
+    except Exception as e:
+            print(e)
+            raise HTTPException(status_code=404, detail="Could not find that plane...")
+    raise HTTPException(status_code=200, detail="Done!")   

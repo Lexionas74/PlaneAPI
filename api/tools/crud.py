@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+from sqlalchemy import delete
 from . import models, schemas
 
 
@@ -19,4 +19,7 @@ def create_plane(db: Session, plane_info: schemas.Plane):
     db.refresh(db_user)
     return db_user
 
-
+def delete_plane_by_id(db:Session,ids: int):
+    db.query(models.Plane).filter(models.Plane.ids == ids).delete()
+    db.commit()
+    return True
