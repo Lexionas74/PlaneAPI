@@ -12,4 +12,4 @@ As PlaneAPI is a work in progress, this is not currently possible
 
 
 
-Created by Lexionas74#1535 and Conos#9079
+Created by Lexionas74#1535 and Conos#9079, both on Discord.
