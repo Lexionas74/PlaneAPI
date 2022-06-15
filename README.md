@@ -2,12 +2,12 @@
 
 
 # What is PlaneAPI?
-PlaneAPi is an API that gives you some information about a random plane
+PlaneAPI is an API that gives you some information about a random plane!
 
 
 
 # How do I use plane API?
-As PlaneAPI is a work in progress, this is not currently possible
+As PlaneAPI is a work in progress, this is not currently possible! This will be available in the near future!
 
 
 
