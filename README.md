@@ -1,4 +1,4 @@
-# Plane API
+# PlaneAPI
 
 
 # What is PlaneAPI?
