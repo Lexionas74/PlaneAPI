@@ -22,7 +22,20 @@ def get_db(): # Just getting the db ykyk
     finally:
         db.close()
 
+<<<<<<< HEAD
 @PlaneAPI.get('/',tags=["Misc Items"])
+=======
+class Plane(BaseModel):
+    id: int # id
+    name: str # plane name
+    price: str # plane price
+    length: str # plane length
+    wingspan: str # wingspan
+    mtow: str # maximum takeoff weight
+    is_jet_engine: Optional[bool] = None # does the plane have jet engines or not?
+
+@PlaneAPI.get('/')
+>>>>>>> parent of cedadb1 (hah)
 def read_root():
     return {"Hey!": "Welcome to PlaneAPI. Use the endpoint `/getplane` to get a random plane!"}
 
