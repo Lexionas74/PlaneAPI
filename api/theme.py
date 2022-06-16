@@ -9,14 +9,14 @@ This API includes the planes image link, hosted on a 3rd party website.
 
 ## Features
 
-You are be able to:
+You are able to:
 
 * ✈ **Get random planes with their information**.
 * ✈ **Search specific planes**.
 
 ## Planned Features
 
-_None at the moment_
+Use in discord bots
 
 # Enjoy PlaneAPI - 🛫
 
