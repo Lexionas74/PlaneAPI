@@ -1,0 +1,1 @@
+web: sh -c 'cd ./api/ && python main.py'
