@@ -14,6 +14,7 @@ bs4 = "==0.0.1"
 charset-normalizer = "==2.0.12"
 fastapi = "*"
 uvicorn = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 
