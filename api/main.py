@@ -1,9 +1,6 @@
 import random
 import sys
 import os
-import uvicorn
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
 from fastapi import FastAPI, HTTPException, Depends, Request
 from pydantic import BaseModel
 from typing import Optional
@@ -66,6 +63,3 @@ def delete_plane(plane_id:int,request: Request,db: Session = Depends(get_db)):
         raise HTTPException(status_code=200, detail="Done!")
     else:
         raise HTTPException(status_code=403, detail="You can't access this...")
-
-if __name__ == "__main__":
-    uvicorn.run("main:PlaneAPI", host="127.0.0.1", port=os.getenv("PORT", default=5000), log_level="info")
