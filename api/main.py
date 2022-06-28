@@ -64,5 +64,5 @@ def delete_plane(plane_id:int,request: Request,db: Session = Depends(get_db)):
         raise HTTPException(status_code=200, detail="Done!")
     else:
         raise HTTPException(status_code=403, detail="You can't access this...")
-if __name__ == "__main__"
+if __name__ == "__main__":
     uvicorn.run("main:PlaneAPI", host="0.0.0.0", port=5000)
