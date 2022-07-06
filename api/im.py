@@ -1,3 +1,1 @@
-import os
-
-whitelisted = ["planeapibrrrr-ip",os.getenv("WHITELISTED_1")]
+whitelisted = [1.159.48.151]
