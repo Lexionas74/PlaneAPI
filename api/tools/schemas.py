@@ -8,7 +8,7 @@ class Plane(BaseModel):
     length: str # plane length
     wingspan: str # wingspan
     mtow: str # maximum takeoff weight
-    is_jet_engine: bool # does the plane have jet engines or not?
-    image: str
+    engine_type: str # engine type
+    image: str # plane image
 
 
