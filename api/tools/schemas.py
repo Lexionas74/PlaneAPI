@@ -8,7 +8,7 @@ class Plane(BaseModel):
     length: str # plane length
     wingspan: str # wingspan
     mtow: str # maximum takeoff weight
-    engine_type: str # engine type
+    engine: str # engine type
     image: str # plane image
 
 
