@@ -10,5 +10,5 @@ class Plane(Base):
     length = Column(String, index=True) # plane length
     wingspan = Column(String, index=True) # wingspan
     mtow = Column(String, index=True) # maximum takeoff weight
-    engine = Column(String, index=True) #what type of engine is it? turboprop? jet?
+    engine_type = Column(String, index=True) #what type of engine is it? turboprop? jet?
     image = Column(String, index=True) # image
