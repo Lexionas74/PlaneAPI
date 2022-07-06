@@ -13,7 +13,7 @@ def get_plane_by_name(db: Session, name: str):
     return db.query(models.Plane).filter(models.Plane.name == name).first()
 
 def create_plane(db: Session, plane_info: schemas.Plane):
-    db_user = models.Plane(ids=plane_info.ids, name=plane_info.name, description=plane_info.description, price=plane_info.price, length=plane_info.length, wingspan=plane_info.wingspan, mtow=plane_info.mtow, is_jet_engine=plane_info.is_jet_engine, image=plane_info.image)
+    db_user = models.Plane(ids=plane_info.ids, name=plane_info.name, description=plane_info.description, price=plane_info.price, length=plane_info.length, wingspan=plane_info.wingspan, mtow=plane_info.mtow, is_jet_engine=plane_info.engine, image=plane_info.image)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
