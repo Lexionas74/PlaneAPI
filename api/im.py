@@ -1,1 +1,1 @@
-whitelisted =["1.159.48.151"]
+whitelisted = ["1.159.48.151"]
