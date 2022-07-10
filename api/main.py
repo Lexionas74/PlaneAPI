@@ -23,20 +23,25 @@ def get_db(): # Just getting the db ykyk
 
 @PlaneAPI.get('/')
 def read_root():
-    return {"Hey!": "Welcome to PlaneAPI. Use the endpoint `/getplane` to get a random plane!"}
+    return {"Hey!": "Welcome to PlaneAPI. Use the endpoint `/planes/random` to get a random plane!"}
 
-@PlaneAPI.get('/getplane',tags=["Planes"])
+@PlaneAPI.get('/planes',tags=["Planes"])
+def getplane(db: Session = Depends(get_db)):
+    all_planes = crud.get_all_planes(db)
+    return all_planes
+
+@PlaneAPI.get('/planes/random',tags=["Planes"])
 def getplane(db: Session = Depends(get_db)):
     all_planes = crud.get_all_planes(db)
     random_plane = random.choice(all_planes)
     return random_plane
 
-@PlaneAPI.get('/getplane/{plane_id}',tags=["Planes"])
+@PlaneAPI.get('/planes/{plane_id}',tags=["Planes"])
 def get_a_plane(plane_id,db: Session = Depends(get_db)):
     plane = crud.get_plane_by_id(db, int(plane_id))
     return plane
 
-@PlaneAPI.post("/postplane",tags=["Private Items"])
+@PlaneAPI.post("/planes",tags=["Private Items"])
 def add_plane(plane:schemas.Plane,request: Request,db: Session = Depends(get_db)):
     client_host = request.client.host
     if str(client_host) in whitelisted:
@@ -51,7 +56,7 @@ def add_plane(plane:schemas.Plane,request: Request,db: Session = Depends(get_db)
     else:
         raise HTTPException(status_code=403, detail="You can't access this...")
 
-@PlaneAPI.delete("/getplane/{plane_id}",tags=["Private Items"])
+@PlaneAPI.delete("/planes/{plane_id}",tags=["Private Items"])
 def delete_plane(plane_id:int,request: Request,db: Session = Depends(get_db)):
     client_host = request.client.host
     if str(client_host) in whitelisted:
